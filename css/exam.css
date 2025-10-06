@@ -1,0 +1,22 @@
+.exam-container{
+    overflow: auto;
+    padding: 0px 20px;
+}
+
+
+.show-exam-table-container{
+    border: 2px solid red;
+    width: 100%;
+    height: auto;
+}
+.show-exam-table{
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+}
+
+
+
+
+
+
+

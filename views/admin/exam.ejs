@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DashBoard</title>
+    <!-- for all page -->
+    <link rel="stylesheet" type="text/css" href="../topnav.css">
+    <link rel="stylesheet" type="text/css" href="../sidenav.css">
+    <link rel="stylesheet" type="text/css" href="../main.css">
+    <link rel="stylesheet" type="text/css" href="../var.css">
+    <link rel="stylesheet" type="text/css" href="../main-pop-up.css">
+    <link rel="stylesheet" type="text/css" href="../add-info.css">
+    <script src="/jquery.js"></script>
+    <script src="/sidenav.js"></script>
+    <script src="/main-heading.js"></script>
+    <script src="/addexam.js"></script>
+    
+    <!-- pack -->
+
+    <link rel="stylesheet" type="text/css" href="../exam.css">
+
+</head>
+
+<body>
+    <%- include("component/topnav.ejs") %>
+        <div class="contant-container">
+
+            <div class="side-div-bar">
+                <div class="side-nav-icon">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+            <%- include("component/sidenav.ejs") %>
+                <div class="main-contant-container">
+                    <div class="exam-container">
+                        <div class="main-exam-container" id="examheading">
+                            <!-- main heading is comman in every page start -->
+                            <script>
+                                document.getElementById("examheading").innerHTML += mainHeading("Add Exam", "open-exam-box", "Exam");
+                            </script>
+                            <!-- main heading is comman in every page end -->
+                        </div>
+
+                        <div class="show-exam-table-container">
+                            <div class="show-exam-table">
+                                <div class="">
+                                    Serial No
+                                </div>
+                                <div class="">
+                                    Exam
+                                </div>
+                                <div class="">
+                                    Unique id
+                                </div>
+
+                                <div class="">
+                                    Type
+                                </div>
+
+                                <div class="">
+                                    Area
+                                </div>
+
+                                <div class="">
+                                    active
+                                </div>
+
+                                <div class="">
+                                    visible
+                                </div>
+
+                                <div class="">
+                                    display
+                                </div>
+
+                                <div class="">
+                                    action
+                                </div>
+
+                                <div class="">
+                                    add
+                                </div>
+                                
+                                <% if (data && data.length> 0) { %>
+
+                                    <% data.forEach((item, index)=> { %>
+                                        <div class="">
+                                            <%- index+1 %>
+                                        </div>
+                                        <div class="">
+                                            <%- item.exam %>
+                                        </div>
+
+                                        <div class="">
+                                            <%- item.examuniqueid %>
+                                        </div>
+
+                                        <div class="">
+                                            <%- item.type %>
+                                        </div>
+
+                                        <div class="">
+                                            <%- item.area %>
+                                        </div>
+
+                                        <div class="">
+                                            <%- item.active %>
+                                        </div>
+
+                                        <div class="">
+                                            <%- item.visible %>
+                                        </div>
+
+                                        <div class="">
+                                            <%- item.display %>
+                                        </div>
+
+                                        <div class="">
+                                            View
+                                        </div>
+
+                                        <div class="">
+                                            <button class="add-paper" data-add='<%- JSON.stringify(item) %>'>Add Paper</button>
+                                        </div>
+
+
+
+                                        <% }) %>
+
+                                            <% } else { %>
+                                                <p>No data found.</p>
+                                                <% } %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+
+        <%- include("component/addpaper.ejs") %>
+        <%- include("component/addexam.ejs") %>
+
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"
+                integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ=="
+                crossorigin="anonymous" referrerpolicy="no-referrer" />
+</body>
+
+</html>

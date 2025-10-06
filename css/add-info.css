@@ -1,0 +1,120 @@
+.add-main-background {
+            height: 100vh;
+            width: 100%;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background-color: black;
+            opacity: .8;
+            position: absolute;
+            display: none;
+        }
+
+        .add-main-container {
+            height: auto;
+            width: auto;
+            background: white;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            position: absolute;
+            display: none;
+        }
+
+        .close-button-container {
+            height: var(--add-pop-up-height);
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .close-button-box {
+            color: var(--close-button-text-color);
+            height: 25px;
+            width: 25px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 22px;
+            cursor: pointer
+        }
+
+        .add-info-heading {
+            height: var(--add-pop-up-height);
+            margin-top: calc(-1 * var(--add-pop-up-height));
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 26px;
+        }
+
+        .add-info-main-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 50px 70px;
+        }
+
+        .add-info-from-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px
+        }
+
+        .add-input-form-container {
+            min-width: 450px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        }
+
+        .add-input-text {
+            width: 120px;
+        }
+
+        .input-form-box {
+            width: calc(100% - 140px);
+        }
+
+        .input-style {
+            width: 100%;
+            height: 25px;
+            border-radius: 10px;
+            padding: 0px 10px;
+            font-size: 16px;
+            border: none;
+            outline: none;
+            border-bottom: 1px solid black;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+
+        }
+
+        .input-form-textarea {
+            width: 100%;
+            height: 100px;
+            border-radius: 10px;
+            padding: 10px 10px;
+            font-size: 16px;
+            border: 1px solid black;
+            outline: none;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        }
+
+        .add-exam-submit-container {
+            display: flex;
+            width: 450px;
+            justify-content: flex-end;
+        }
+
+        .add-exam {
+            background-color: var(--main-button-color);
+            color: var(--main-text-color);
+            padding: 5px 10px;
+            font-size: 14px;
+            border: none;
+            outline: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }

@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DashBoard</title>
+    <!-- for all page -->
+    <link rel="stylesheet" type="text/css" href="../topnav.css">
+    <link rel="stylesheet" type="text/css" href="../sidenav.css">
+    <link rel="stylesheet" type="text/css" href="../main.css">
+    <link rel="stylesheet" type="text/css" href="../var.css">
+    <link rel="stylesheet" type="text/css" href="../add-info.css">
+    <script src="/jquery.js"></script>
+    <script src="/sidenav.js"></script>
+    <script src="/main-heading.js"></script>
+    <script src="/addpop.js"></script>
+    <!-- pack -->
+    <link rel="stylesheet" type="text/css" href="../question.css">
+    <script src="../ckeditor.js"></script>
+    <script src="../question-fn.js"></script>
+    <script src="../question.js"></script>
+
+</head>
+
+
+<body>
+    <%- include("component/topnav.ejs") %>
+        <div class="contant-container">
+            <div class="side-div-bar">
+                <div class="side-nav-icon">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+            <%- include("component/sidenav.ejs") %>
+                <div class="main-contant-container">
+                    <div id="question-container">
+                        <div class="main-exam-container" id="examheading">
+                            <script>
+                                document.getElementById("examheading").innerHTML += mainHeading("Add info", "open-question-box", "Questions");
+                            </script>
+                        </div>
+
+                        <div id="groupCount">
+                            Group Count Remain Question <span id="groupCounter">1</span>/<span id="totalGroupnumber">3</span>
+                        </div>
+
+                        <!-- add main content page -->
+                        <div class="show-meta-info-container">
+                            <div class="show-about-text-info">
+                                <script>
+                                    localStorage.getItem("examname")? document.write(localStorage.getItem("examname")): ""                                    
+                                    localStorage.getItem("papernamem")? document.write("/ "+localStorage.getItem("papernamem")): ""
+                                    localStorage.getItem("type")? document.write("/"+localStorage.getItem("type")): ""
+                                    localStorage.getItem("year")? document.write("/ "+localStorage.getItem("year")): ""
+                                    localStorage.getItem("seriescode")? document.write("/ "+localStorage.getItem("seriescode")): ""
+                                    localStorage.getItem("seriesno")? document.write("/ "+localStorage.getItem("seriesno")): ""
+                                    localStorage.getItem("setcodeid")? document.write("/ "+localStorage.getItem("setcodeid")): ""
+                                </script>
+                            </div>
+                            <div class="add-group-question-button">
+                                <button id="showGroupBox">Group</button>
+                            </div>
+
+                        </div>
+
+                        <div id="showQuestionNo">
+                            Question No :<span id="showQuestionNumber"> 01</span>
+                        </div>
+
+
+
+
+                        <div class="question-box-conatiner">
+                            <div class="show-language-name" id="showFirstLanguageName">
+
+                            </div>
+
+                            <div class="question-box">
+                                <textarea id="questionOne">Test code is run</textarea>
+                                    
+                                <script>
+                                    CKEDITOR.replace('questionOne');
+                                </script>
+                            </div>
+
+                            <div class="show-toggle-box" id="toggleToArea">
+                                <button>Toggle</button>
+                            </div>
+
+                            <div class="option-container" id="firstLangauageInpitContainer">
+
+                                <div class="input-option-container">
+                                    <div class="input-option-heading">
+                                        (A)
+                                    </div>
+                                    <div class="input-option-box">
+                                        <input type="text" class="input" id="LanguageOneOptionOne" value="one">
+                                    </div>
+                                </div>
+
+                                <div class="input-option-container">
+                                    <div class="input-option-heading">
+                                        (B)
+                                    </div>
+                                    <div class="input-option-box">
+                                        <input type="text" class="input" id="LanguageOneOptiontwo" value="two">
+                                    </div>
+                                </div>
+
+                                <div class="input-option-container">
+                                    <div class="input-option-heading">
+                                        (C)
+                                    </div>
+                                    <div class="input-option-box">
+                                        <input type="text" class="input" id="LanguageOneOptionthree" value="three">
+                                    </div>
+                                </div>
+
+                                <div class="input-option-container">
+                                    <div class="input-option-heading">
+                                        (D)
+                                    </div>
+                                    <div class="input-option-box">
+                                        <input type="text" class="input" id="LanguageOneOptionfour" value="four">
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="textarea-container" id="firstTextareaInputContainer">
+
+                                <div class="textarea-input-box">
+                                    <div class="option-heading">
+                                        (A) <i class="fa-solid fa-angle-down"></i>
+                                    </div>
+                                    <div class="option-input">
+                                        <textarea id="input-languageOne-for-one">
+
+                                    </textarea>
+                                        <script>
+                                            CKEDITOR.replace('input-languageOne-for-one');
+                                        </script>
+                                    </div>
+                                </div>
+
+                                <div class="textarea-input-box">
+                                    <div class="option-heading">
+                                        (B) <i class="fa-solid fa-angle-down"></i>
+                                    </div>
+                                    <div class="option-input">
+                                        <textarea id="input-languageOne-for-two">
+
+                                    </textarea>
+                                        <script>
+                                            CKEDITOR.replace('input-languageOne-for-two');
+                                        </script>
+                                    </div>
+                                </div>
+
+                                <div class="textarea-input-box">
+                                    <div class="option-heading">
+                                        (C) <i class="fa-solid fa-angle-down"></i>
+                                    </div>
+                                    <div class="option-input">
+                                        <textarea id="input-languageOne-for-three">
+
+                                    </textarea>
+                                        <script>
+                                            CKEDITOR.replace('input-languageOne-for-three');
+                                        </script>
+                                    </div>
+                                </div>
+
+                                <div class="textarea-input-box">
+                                    <div class="option-heading">
+                                        (D) <i class="fa-solid fa-angle-down"></i>
+                                    </div>
+                                    <div class="option-input">
+                                        <textarea id="input-languageOne-for-four">
+
+                                    </textarea>
+                                        <script>
+                                            CKEDITOR.replace('input-languageOne-for-four');
+                                        </script>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- ########################################################################### -->
+
+                        <div class="question-box-conatiner" id="secondLanguageContainer">
+                            <div class="show-language-name" id="showSceondLanguageName">
+
+                            </div>
+
+                            <div class="question-box">
+                                <textarea id="questionTwo">Sconed</textarea>
+                                <script>
+                                    CKEDITOR.replace('questionTwo');
+                                </script>
+                            </div>
+
+
+                            <div class="option-container" id="sceondLangauageInpitContainer">
+
+                                <div class="input-option-container">
+                                    <div class="input-option-heading">
+                                        (A)
+                                    </div>
+                                    <div class="input-option-box">
+                                        <input type="text" class="input" id="LanguageTwoOptionOne" value="five">
+                                    </div>
+                                </div>
+
+                                <div class="input-option-container">
+                                    <div class="input-option-heading">
+                                        (B)
+                                    </div>
+                                    <div class="input-option-box">
+                                        <input type="text" class="input" id="LanguageTwoOptionTwo" value="six">
+                                    </div>
+                                </div>
+
+                                <div class="input-option-container">
+                                    <div class="input-option-heading">
+                                        (C)
+                                    </div>
+                                    <div class="input-option-box">
+                                        <input type="text" class="input" id="LanguageTwoOptionThree" value="seven">
+                                    </div>
+                                </div>
+
+                                <div class="input-option-container">
+                                    <div class="input-option-heading">
+                                        (D)
+                                    </div>
+                                    <div class="input-option-box">
+                                        <input type="text" class="input" id="LanguageTwoOptionFour" value="eight">
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="textarea-container" id="sceondTextareaInputContainer">
+
+                                <div class="textarea-input-box">
+                                    <div class="option-heading">
+                                        (A) <i class="fa-solid fa-angle-down"></i>
+                                    </div>
+                                    <div class="option-input">
+                                        <textarea id="input-languageTwo-for-one">
+
+                                    </textarea>
+                                        <script>
+                                            CKEDITOR.replace('input-languageTwo-for-one');
+                                        </script>
+                                    </div>
+                                </div>
+
+                                <div class="textarea-input-box">
+                                    <div class="option-heading">
+                                        (B) <i class="fa-solid fa-angle-down"></i>
+                                    </div>
+                                    <div class="option-input">
+                                        <textarea id="input-languageTwo-for-two">
+
+                                    </textarea>
+                                        <script>
+                                            CKEDITOR.replace('input-languageTwo-for-two');
+                                        </script>
+                                    </div>
+                                </div>
+
+                                <div class="textarea-input-box">
+                                    <div class="option-heading">
+                                        (C) <i class="fa-solid fa-angle-down"></i>
+                                    </div>
+                                    <div class="option-input">
+                                        <textarea id="input-languageTwo-for-three">
+
+                                    </textarea>
+                                        <script>
+                                            CKEDITOR.replace('input-languageTwo-for-three');
+                                        </script>
+                                    </div>
+                                </div>
+
+                                <div class="textarea-input-box">
+                                    <div class="option-heading">
+                                        (D) <i class="fa-solid fa-angle-down"></i>
+                                    </div>
+                                    <div class="option-input">
+                                        <textarea id="input-languageTwo-for-four">
+
+                                    </textarea>
+                                        <script>
+                                            CKEDITOR.replace('input-languageTwo-for-four');
+                                        </script>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+
+
+
+
+                        <div class="answer-box">
+                            <div class="answer-container answer-div">
+                                <div class="answer-heading">
+                                    Answer
+                                </div>
+                                <div class="answer-input">
+                                    <input type="text" class="input" id="answer" value="a">
+                                </div>
+
+                            </div>
+
+                            <div class="submit-container answer-div">
+                                <input type="submit" class="submit" id="submitQuestion">
+
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+
+                    </div>
+                </div>
+        </div>
+
+        <%- include("component/addquestion.ejs") %>
+            <%- include("component/addGroupButton.ejs") %>
+            <%- include("component/questionErrorMassage.ejs") %>
+
+                    <link rel="stylesheet"
+                        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"
+                        integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ=="
+                        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</body>
+
+</html>

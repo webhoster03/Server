@@ -1,0 +1,8 @@
+:root{
+    --main-button-color: #800000; /* this color use main heading button and most commann color */
+    --main-text-color: aliceblue; /*this color is use in main button*/
+    --close-button-text-color: #800000; /*close pop-up button text*/
+    --add-pop-up-height: 50px; /* for add pop-up height title and close height */
+    --question-toggle-button: #800000;
+    --question-meta-data-container-size: 30px
+}

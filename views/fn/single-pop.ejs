@@ -1,0 +1,82 @@
+<div class="background-pop-container">
+</div>
+
+<div class="show_massage_container">
+        <div class="alert-icon">
+            
+        </div>
+        <div class="massage-box">
+            <div class="massage-text">
+                
+            </div>
+        </div>
+
+        <div class="login-pop-close-btn-container">
+            <button id="login-pop-close-btn">
+                Close
+            </button>
+        </div>
+    </div>
+</div>
+
+<style>
+    .background-pop-container {
+        height: 100vh;
+        width: 100%;
+        background-color: black;
+        opacity: 0.5;
+        position: fixed;
+        top: 0;
+        left: 0;
+        display: none;
+    }
+
+    .show_massage_container {
+        
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        display: none;
+    }
+
+    .alert-icon{
+        height: 60px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 36px;
+        color: #800000;
+    }
+
+    .massage-text{
+        font-size: 22px;
+        font-family: 'Courier New', Courier, monospace;
+        padding: 20px;
+    }
+
+    .login-pop-close-btn-container{
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        padding: 0 20px 20px 0;
+
+    }
+    .login-pop-close-btn-container button{
+        padding: 5px 10px;
+        border: none;
+        background-color: #800000;
+        color: white;
+        font-size: 14px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        cursor: pointer;
+    }
+</style>

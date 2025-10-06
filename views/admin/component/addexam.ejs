@@ -1,0 +1,185 @@
+<div id="add-exam-background" class="add-main-background"></div>
+<div id="add-exam-main-container" class="add-main-container">
+    <div id="close-button-container" class="close-button-container">
+        <div id="close-button-box" class="close-button-box">X</div>
+    </div>
+    <div id="add-exam-heading" class="add-info-heading">
+        Add Exam
+    </div>
+    <div id="add-exam-main-contaner" class="add-info-main-container">
+        <div id="add-exam-form-container" class="add-info-from-container">
+
+            <div class="add-input-form-container">
+                <div class="add-input-text">
+                    Exam Name
+                </div>
+                <div class="input-form-box">
+                    <input type="text" class="input-style" id="examName" autocomplete="off" autofocus>
+                </div>
+            </div>
+
+            <div class="add-input-form-container">
+                <div class="add-input-text">
+                    Exam Type
+                </div>
+                <div class="input-form-box">
+                    <select class="input-style" id="examType">
+                        <option value="" selected>Select Exam Type</option>
+                        <option value="center">Government of India</option>
+                        <option value="state">State Government</option>
+                        <option value="entrance">Entrance Exam</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="add-input-form-container">
+                <div class="add-input-text">
+                    Exam Area
+                </div>
+                <div class="input-form-box">
+                    <select class="input-style" id="examArea">
+                        <option value="" selected>Select Exam Area</option>
+                        <option value="IN">India</option>
+
+                        <!-- Union Territories -->
+                        <option value="AN">Andaman and Nicobar Islands</option>
+                        <option value="CH">Chandigarh</option>
+                        <option value="DN">Dadra and Nagar Haveli</option>
+                        <option value="DD">Daman and Diu</option>
+                        <option value="DL">Delhi</option>
+                        <option value="JK">Jammu and Kashmir</option>
+                        <option value="LA">Ladakh</option>
+                        <option value="LD">Lakshadweep</option>
+                        <option value="PY">Puducherry</option>
+
+                        <!-- States -->
+                        <option value="AP">Andhra Pradesh</option>
+                        <option value="AR">Arunachal Pradesh</option>
+                        <option value="AS">Assam</option>
+                        <option value="BR">Bihar</option>
+                        <option value="CT">Chhattisgarh</option>
+                        <option value="GA">Goa</option>
+                        <option value="GJ">Gujarat</option>
+                        <option value="HR">Haryana</option>
+                        <option value="HP">Himachal Pradesh</option>
+                        <option value="JH">Jharkhand</option>
+                        <option value="KA">Karnataka</option>
+                        <option value="KL">Kerala</option>
+                        <option value="MP">Madhya Pradesh</option>
+                        <option value="MH">Maharashtra</option>
+                        <option value="MN">Manipur</option>
+                        <option value="ML">Meghalaya</option>
+                        <option value="MZ">Mizoram</option>
+                        <option value="NL">Nagaland</option>
+                        <option value="OD">Odisha</option>
+                        <option value="PB">Punjab</option>
+                        <option value="RJ">Rajasthan</option>
+                        <option value="SK">Sikkim</option>
+                        <option value="TN">Tamil Nadu</option>
+                        <option value="TS">Telangana</option>
+                        <option value="TR">Tripura</option>
+                        <option value="UP">Uttar Pradesh</option>
+                        <option value="UK">Uttarakhand</option>
+                        <option value="WB">West Bengal</option>
+
+                    </select>
+                </div>
+            </div>
+
+            <div class="add-input-form-container">
+                <div class="add-input-text">
+                    Remarks
+                </div>
+                <div class="input-form-box">
+                    <textarea class="input-form-textarea" id="Remarks"></textarea>
+                </div>
+            </div>
+
+            <div class="add-exam-submit-container">
+                <input type="submit" value="Add Exam" class="add-exam" id="addExam">
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<%- include('../../fn/single-pop') %>
+    <script src="/sinlge-pop-close.js"></script>
+
+    <script>
+        $(document).ready(() => {
+
+            $("#open-exam-box").on("click", () => {
+                $("#add-exam-background, #add-exam-main-container").show()
+                $("body").css("overflow", "hidden");
+            })
+
+            $("#close-button-box").on("click", () => {
+                $("#add-exam-background, #add-exam-main-container").hide()
+                $("body").css("overflow", "auto");
+            })
+
+
+
+
+
+
+
+
+            $("#addExam").on("click", () => {
+                const examName = $("#examName").val()
+                const examArea = $("#examArea").val()
+                const examType = $("#examType").val()
+                const remarks = $("#remarks").val()
+
+
+                if (!examName.length > 0 || !examName.trim()) {
+                    singlePopClose("Enter exam Name");
+                    return; // stop further execution
+                }
+                else if (!examArea.length > 0 || !examArea.trim()) {
+                    singlePopClose("Enter exam Area");
+                    return; // stop further execution
+                }
+                else if (!examType.length > 0 || !examType.trim()) {
+                    singlePopClose("Enter exam Type");
+                    return;
+                }
+
+                else {
+                    $.ajax({
+                        method: "POST",
+                        url: "/admin/addexam",
+                        data: {
+                            examname: examName,
+                            examtype: examType,
+                            examarea: examArea,
+                            remarks: remarks,
+                            name: "<%- name %>",
+                            user: "<%- user %>",
+                            adminid: "<%- adminid %>",
+                            role: "<%- role %>"
+                        },
+                        success: function (getrespone) {
+                            $("#add-exam-background, #add-exam-main-container").hide()
+                            $("body").css("overflow", "auto");
+                            const respone = JSON.parse(getrespone)
+                            if (respone.status === true) {
+                                singlePopClose(respone.message, respone.status);
+                            }
+                            if (respone.status === false) {
+                                singlePopClose(respone.message, respone.status);
+                            }
+                        },
+                        error: function (respone) {
+                            $("#add-exam-background, #add-exam-main-container").hide()
+                            $("body").css("overflow", "auto");
+                            if (respone.status === false) {
+                                singlePopClose(respone, false);
+                            }
+                        }
+                    })
+                }
+            })
+        })
+    </script>

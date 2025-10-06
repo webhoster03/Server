@@ -1,0 +1,179 @@
+<div id="add-employ-backgorund" class="add-main-background"></div>
+<div id="add-employ-container" class="add-main-container">
+    <div id="close-button-container" class="close-button-container">
+        <div id="close-button-box" class="close-button-box">X</div>
+    </div>
+    <div id="" class="add-info-heading">
+        Add employ
+    </div>
+    <div id="" class="add-info-main-container">
+        <div id="" class="add-info-from-container">
+
+            <div class="add-input-form-container">
+                <div class="add-input-text">
+                    employ Name
+                </div>
+                <div class="input-form-box">
+                    <input type="text" autocomplete="off" class="input-style" id="name">
+                </div>
+            </div>
+
+            <div class="add-input-form-container">
+                <div class="add-input-text">
+                    Mail id
+                </div>
+                <div class="input-form-box">
+                    <input type="text" autocomplete="off" class="input-style" id="mailid">
+                </div>
+            </div>
+
+            <div class="add-input-form-container">
+                <div class="add-input-text">
+                    Contact No
+                </div>
+                <div class="input-form-box">
+                    <input type="text" autocomplete="off" class="input-style" id="contactno">
+                </div>
+            </div>
+
+            <div class="add-input-form-container">
+                <div class="add-input-text">
+                    DOB
+                </div>
+                <div class="input-form-box">
+                    <input type="date" autocomplete="off" class="input-style" id="dob">
+                </div>
+            </div>
+
+            <div class="add-input-form-container">
+                <div class="add-input-text">
+                    Joining Date
+                </div>
+                <div class="input-form-box">
+                    <input type="date" autocomplete="off" class="input-style" id="joiningdate">
+                </div>
+            </div>
+
+            <div class="add-input-form-container">
+                <div class="add-input-text">
+                    employ User id
+                </div>
+                <div class="input-form-box">
+                    <input type="text" autocomplete="off" class="input-style" id="userid">
+                </div>
+            </div>
+
+            <div class="add-input-form-container">
+                <div class="add-input-text">
+                    Create Password
+                </div>
+                <div class="input-form-box">
+                    <input type="text" autocomplete="off" class="input-style" id="password">
+                </div>
+            </div>
+
+            <div class="add-input-form-container">
+                <div class="add-input-text">
+                    Designation
+                </div>
+                <div class="input-form-box">
+                    <select class="input-style" id="designation">
+                        <option value="admin">admin</option>
+                    </select>
+                </div>
+            </div>
+
+
+
+            <div class="add-input-form-container">
+                <div class="add-input-text">
+                    Remarks
+                </div>
+                <div class="input-form-box">
+                    <textarea class="input-form-textarea" id="remarks"></textarea>
+                </div>
+            </div>
+
+            <div class="add-exam-submit-container">
+                <input type="submit" value="Add Employ" class="add-exam" id="addemploy">
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<%- include('../../fn/single-pop') %>
+    <script src="/sinlge-pop-close.js"></script>
+
+    <script>
+        $(document).ready(() => {
+
+            $("#close-button-box").on("click", () => {
+                $("#add-employ-backgorund, #add-employ-container").hide()
+                $("body").css("overflow", "auto")
+            })
+
+            $("#open-employees-box").on("click", () => {
+                $("#add-employ-backgorund, #add-employ-container").show()
+                $("body").css("overflow", "hidden")
+            })
+
+            $("#addemploy").on("click", function () {
+
+                const name = $("#name").val()
+                const mailid = $("#mailid").val()
+                const contactno = $("#contactno").val()
+                const dob = $("#dob").val()
+                const joiningdate = $("#joiningdate").val()
+                const userid = $("#userid").val()
+                const password = $("#password").val()
+                const designation = $("#designation").val()
+                const remarks = $("#remarks").val()
+
+
+
+                const data = {
+                    employname: name,
+                    mailid: mailid,
+                    contactno: contactno,
+                    dob: dob,
+                    joiningdate: joiningdate,
+                    userid: userid,
+                    password: password,
+                    designation: designation,
+                    remarks: remarks,
+                    name: "<%- name %>",
+                    user: "<%- user %>",
+                    adminid: "<%- adminid %>",
+                    role: "<%- role %>"
+
+                }
+
+                $.ajax({
+                    method: "POST",
+                    url: "/admin/addemploy",
+                    data: data,
+                    success: function (getrespone) {
+                        $("#add-employ-backgorund, #add-employ-container").hide()
+                        $("body").css("overflow", "auto")
+                        const respone = JSON.parse(getrespone)
+                        console.log(getrespone)
+                        if (respone.status === true) {
+                            singlePopClose(respone.message, respone.status);
+                        }
+                        if (respone.status === false) {
+                            $("#add-employ-backgorund, #add-employ-container").hide()
+                            $("body").css("overflow", "auto")
+                            if (respone.status === false) {
+                                singlePopClose(respone, false);
+                            }
+                        }
+                    },
+                    error: function (respone) {
+                        console.log(respone)
+                    }
+                })
+
+            })
+        })
+    </script>

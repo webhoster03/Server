@@ -1,0 +1,59 @@
+<div class="showErrorMainContainer">
+    
+</div>
+
+
+
+
+
+<style>
+    .showErrorMainContainer {
+        top: 60px;
+        left: 50px;
+        position: fixed;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+    }
+
+    .showErrorBox {
+        height: 30px;
+        width: 350px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-radius: 2px;
+    }
+
+    .showErrorMessageBox {
+        width: calc(100% - 20px);
+        /* border: 1px solid black; */
+        height: 100%;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        padding-left: 10px;
+        color: white;
+    }
+
+    .showErrorCloseBox {
+        width: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .showErrorCloseBox button {
+        background-color: transparent;
+        border: none;
+        outline: none;
+        color: #000000;
+        cursor: pointer;
+    }
+</style>
+
+<script>
+    $(document).on("click", ".showErrorCloseBox", function(){
+        $(this).closest(".showErrorBox").hide()
+    })
+</script>

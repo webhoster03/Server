@@ -1,0 +1,381 @@
+<div id="group-background"></div>
+<div id="group-main-container">
+    <div id="group-close-container" class="group-close-container">
+        <div id="group-close" class="group-close">X</div>
+    </div>
+    <div id="group-heading">
+        Number of Question
+    </div>
+
+    <div id="main-group-container">
+        <div id="group-main-input-container">
+            <div id="group-main-input-heading">
+                Number Of Question
+            </div>
+            <div id="group-main-input-box">
+                <input type="number" id="groupnumber" autofocus>
+            </div>
+        </div>
+        <div id="group-submit">
+            <input type="submit" value="Add" id="addgroupsubmit">
+        </div>
+    </div>
+</div>
+
+
+
+<div id="resetGroupCountContainer">
+    <div id="closeResateGroupContainer" class="group-close-container">
+        <div id="closeResateGroupBox" class="group-close">
+            X
+        </div>
+    </div>
+
+    <div id="resetGroupCountWarningIcon">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+    </div>
+
+    <div id="resetGroupCountMessage">
+        <script>document.write(localStorage.getItem("groupRemainCount"))</script> of
+        <script>document.write(localStorage.getItem("groupCount"))</script>
+        question groups remain. Click "Delete" to remove all groups,
+        or "End" if you mistakenly added extra questions to a group and want to
+        finish submission.
+    </div>
+
+    <div id="resertGroupCountButton">
+        <button id="resetGroupCountEnd">End</button>
+        <button id="resetGroupCountDelete">Delete</button>
+    </div>
+</div>
+
+<style>
+
+</style>
+
+<%- include('../../fn/single-pop') %>
+
+
+    <script>
+        $(document).ready(() => {
+            $("#group-close").on("click", () => {
+                $("#group-background , #group-main-container").hide()
+                $("body").css("overflow", "auto")
+            })  // close add remain group container
+
+            $("#closeResateGroupBox").on("click", () => {
+                $("#group-background , #resetGroupCountContainer").hide()
+                $("body").css("overflow", "auto")
+            })      //clese reset group container
+
+
+
+            const groupRemainCount = Number(localStorage.getItem("groupRemainCount"))
+            if (groupRemainCount !== 0) {
+                $("#groupCount").show()
+                $("#groupCounter").empty().append(Number(localStorage.getItem("groupRemainCount")))
+                $("#totalGroupnumber").empty().append(localStorage.getItem("groupCount")) // show remain question box and show how many question is remain
+            } else {
+                $("#groupCount").hide()
+            }
+
+            $("#showGroupBox").on("click", () => {
+                const groupCount = localStorage.getItem("groupCount")
+                const groupId = localStorage.getItem("groupId") || 0
+
+
+                if (groupCount > 0 || groupId.length > 0) {
+                    // add here code is remove group count all group question is deleted
+                    $("#group-background , #resetGroupCountContainer").show()
+                    $("body").css("overflow", "auto")
+                    return false
+                }
+
+                $("#group-background , #group-main-container").show()
+                $("body").css("overflow", "hidden")
+            })
+
+            $("#addgroupsubmit").on("click", () => {
+                const getnumber = $("#groupnumber").val()
+                const groupCount = localStorage.getItem("groupCount")
+
+                if (getnumber < 2) {
+                    singlePopClose("If you want create group of questions , atlest 2 question in required", false);
+                    return;
+                }
+
+
+                if (groupCount === null || groupCount === 0) {
+                    $.ajax({
+                        method: "GET",
+                        url: "/serverapi/groupid",
+                        success: function (getresponse) {
+                            const respone = JSON.parse(getresponse)
+                            localStorage.setItem("groupCount", getnumber)
+                            localStorage.setItem("groupRemainCount", getnumber)
+                            localStorage.setItem("groupId", respone.groupId)
+
+                            $("#groupCount").show()
+                            $("#groupCounter").empty().append(Number(localStorage.getItem("groupRemainCount")))
+                            $("#totalGroupnumber").empty().append(localStorage.getItem("groupCount"))
+
+                            $("#groupnumber").val("")
+                            singlePopClose(`Set Group Count number us ${getnumber}`, true);
+                            $("#group-background , #group-main-container").hide()
+                            $("body").css("overflow", "auto")
+                        },
+                        error: function (xhr, status, error) {
+                            console.error("Error:", error);
+                        }
+                    });
+                }
+            })
+
+
+            $("#resetGroupCountEnd").on("click", () => {
+                const data = {
+                    groupId: localStorage.getItem("groupId"),
+                    testCode: localStorage.getItem("setcodeid"),
+                    groupRemainCount: localStorage.getItem("groupRemainCount"),
+                    groupCount: localStorage.getItem("groupCount")
+                }
+                if (data.groupRemainCount === data.groupCount) {
+                    localStorage.removeItem("groupId")
+                    localStorage.removeItem("groupCount")
+                    localStorage.removeItem("groupRemainCount")
+                    window.location.reload();
+                    return false
+                }
+
+                $.ajax({
+                    method: "POST",
+                    url: "question/groupend",
+                    data: data,
+                    success: function (getResponce) {
+                        const respone = JSON.parse(getResponce)
+                        console.log(respone)
+                        if (respone.status === true && respone.code === 1) {
+                            localStorage.removeItem("groupId")
+                            localStorage.removeItem("groupCount")
+                            localStorage.removeItem("groupRemainCount")
+                            window.location.reload();
+                            return false
+                        }
+                        if (respone.status === false && respone.code === 2){
+                            alert(respone.message)
+                        }
+                    },
+                    error: function (responce) {
+                        console.log(responce)
+                    }
+
+                })
+            })
+
+
+            $("#resetGroupCountDelete").on("click", () => {
+                
+                if (localStorage.getItem("groupRemainCount") === localStorage.getItem("groupCount")) {
+                    localStorage.removeItem("groupId")
+                    localStorage.removeItem("groupCount")
+                    localStorage.removeItem("groupRemainCount")
+                    window.location.reload();
+                    return false
+                }
+
+                
+                $.ajax({
+                    method: "POST",
+                    url: "question/groupdelete",
+                    data: {
+                        groupId: localStorage.getItem("groupId"),
+                        testCode: localStorage.getItem("setcodeid")
+
+                    },
+                    success: function (getResponce) {
+                        const responce = JSON.parse(getResponce)
+                        if (responce.status === true && responce.code === 1) {
+                            localStorage.removeItem("groupId")
+                            localStorage.removeItem("groupCount")
+                            localStorage.removeItem("groupRemainCount")
+                            window.location.reload();
+                        }
+                        else {
+                            console.log("somee error of delete group questions")
+                        }
+                    },
+                    error: function (respone) {
+                        console.log(respone)
+                    }
+                })
+            })
+
+
+
+
+        })
+    </script>
+
+
+
+
+    <style>
+        #group-background {
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: black;
+            position: fixed;
+            opacity: 0.8;
+            display: none;
+        }
+
+        #group-main-container {
+            height: 250px;
+            width: 450px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            position: fixed;
+            background-color: white;
+            border-radius: 3px;
+            display: none;
+        }
+
+        .group-close-container {
+            height: var(--add-pop-up-height);
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .group-close {
+            color: var(--close-button-text-color);
+            height: 25px;
+            width: 25px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 22px;
+            cursor: pointer;
+        }
+
+        #group-heading {
+            height: var(--add-pop-up-height);
+            margin-top: calc(-1 * var(--add-pop-up-height));
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 26px;
+        }
+
+        #main-group-container {
+            height: calc(100% - 1 * var(--add-pop-up-height));
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        #group-main-input-container {
+            display: flex;
+            width: 250px;
+            justify-content: space-between;
+        }
+
+        #group-main-input-heading {
+            width: 150px;
+            display: flex;
+            align-items: center;
+        }
+
+        #group-main-input-box {
+            width: 70px;
+            height: 35px;
+        }
+
+        #groupnumber {
+            height: 100%;
+            width: 100%;
+            font-size: 18px;
+            font-family: math;
+            text-align: center;
+            border: 2px solid black;
+            outline: none;
+            border-radius: 3px;
+        }
+
+        #group-submit {
+            width: 250px;
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
+
+        #addgroupsubmit {
+            background-color: var(--main-button-color);
+            color: var(--main-text-color);
+            padding: 5px 15px;
+            font-size: 14px;
+            border: none;
+            outline: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+
+
+
+        #resetGroupCountContainer {
+            background-color: white;
+            width: 550px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            position: fixed;
+            border-radius: 3px;
+            display: none;
+        }
+
+        #resetGroupCountWarningIcon {
+            height: 50px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 32px;
+            color: #800000;
+            margin-top: -30px;
+        }
+
+        #resetGroupCountMessage {
+            text-align: justify;
+            text-align-last: center;
+            padding: 10px 30px;
+            font-size: 18px;
+            line-height: 22px;
+            font-family: emoji;
+        }
+
+        #resertGroupCountButton {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            padding-top: 20px;
+            margin-bottom: 30px;
+        }
+
+        #resertGroupCountButton button {
+            background-color: #800000;
+            color: #ffffff;
+            padding: 5px 0px;
+            width: 80px;
+            font-size: 16px;
+            font-family: math;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            border-radius: 2px;
+        }
+    </style>

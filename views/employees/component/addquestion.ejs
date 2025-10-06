@@ -1,0 +1,400 @@
+<div id="add-question-backgorund" class="add-main-background"></div>
+<div id="add-question-main-container" class="add-main-container">
+    <div id="close-button-container" class="close-button-container">
+        <div id="close-button-box" class="close-button-box">X</div>
+    </div>
+    <div id="" class="add-info-heading">
+        Add Questions Info
+    </div>
+    <div id="" class="add-info-main-container">
+        <div id="" class="add-info-from-container">
+
+            <div class="add-input-form-container">
+                <div class="add-input-text">
+                    Exam Name
+                </div>
+                <div class="input-form-box">
+                    <select id="selectexam" class="input-style" id="selectexam">
+                        <option value="">Select Exam</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="add-input-form-container">
+                <div class="add-input-text">
+                    Paper Name
+                </div>
+                <div class="input-form-box">
+                    <select id="selectpaper" class="input-style" id="selectpaper">
+                        <option value="">Select Paper</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="add-input-form-container">
+                <div class="add-input-text">
+                    Type
+                </div>
+                <div class="input-form-box">
+                    <select class="input-style" id="selecttype">
+                        <option value="">Select Type</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="add-input-form-container input-hide" id="tCode">
+                <div class="add-input-text">
+                    Series Code
+                </div>
+                <div class="input-form-box">
+                    <input type="text" id="seriescode" class="input-style">
+                </div>
+            </div>
+
+            <div class="add-input-form-container input-hide" id="srNumber">
+                <div class="add-input-text">
+                    Series No
+                </div>
+                <div class="input-form-box">
+                    <input type="text" id="seriesno" class="input-style">
+                </div>
+            </div>
+
+            <div class="add-input-form-container input-hide" id="showsubject">
+                <div class="add-input-text">
+                    Subject
+                </div>
+                <div class="input-form-box">
+                    <input type="text" id="subject" class="input-style">
+                </div>
+            </div>
+
+            <div class="add-input-form-container input-hide" id="showtopic">
+                <div class="add-input-text">
+                    Topic
+                </div>
+                <div class="input-form-box">
+                    <input type="text" id="topic" class="input-style">
+                </div>
+            </div>
+
+            <div class="add-input-form-container input-hide" id="show-year">
+                <div class="add-input-text">
+                    Year
+                </div>
+                <div class="input-form-box Year-box">
+                    <div class="show-year">
+                        <select class="input-style" id="change-year-status">
+                            <option value="">Year format</option>
+                            <option value="year">YYYY</option>
+                            <option value="month">YYYY / MM </option>
+                            <option value="date">YYYY / MM / DD</option>
+                        </select>
+                    </div>
+                    <div class="show-year" id="set-year-statue">
+                        <input type="month" class="input-style" id="year" placeholder="YYYY">
+                    </div>
+                </div>
+            </div>
+
+            <div class="add-input-form-container">
+                <div class="add-input-text">
+                    Remarks
+                </div>
+                <div class="input-form-box">
+                    <textarea class="input-form-textarea" id="remarks"></textarea>
+                </div>
+            </div>
+
+            <div class="add-exam-submit-container">
+                <input type="submit" value="Add Employ" class="add-exam" id="addinfo">
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+<style>
+    .input-hide {
+        display: none;
+    }
+
+    .Year-box {
+        height: 100%;
+        display: 100%;
+        display: flex;
+    }
+
+    .show-year {
+        width: 50%;
+    }
+</style>
+
+<%- include('../../fn/single-pop') %>
+    <script src="/sinlge-pop-close.js"></script>
+
+    <script>
+        $(document).ready(() => {
+            const paperinfo = []
+            let id;
+            let language;
+
+
+            const previous = () => {
+                $("#show-year").show().css("display", "flex")
+
+                $("#showsubject").hide()
+                $("#showtopic").hide()
+                $("#srNumber").hide()
+                $("#tCode").hide()
+            }
+
+            const series = () => {
+                $("#srNumber").show().css("display", "flex")
+                $("#tCode").show().css("display", "flex")
+
+                $("#show-year").hide()
+                $("#showsubject").hide()
+                $("#showtopic").hide()
+            }
+
+            const subject = () => {
+                $("#showsubject").show().css("display", "flex")
+                $("#showtopic").show().css("display", "flex")
+
+                $("#show-year").hide()
+                $("#srNumber").hide()
+                $("#tCode").hide()
+            }
+
+            
+
+            
+
+
+            //$("#add-question-backgorund, #add-question-main-container").show()
+
+            $("#close-button-box").on("click", () => {
+                $("#add-question-backgorund, #add-question-main-container").hide()
+                $("body").css("overflow", "auto")
+            })
+            //get exam name 
+            $("#open-question-box").on("click", () => {
+                $("#add-question-backgorund, #add-question-main-container").show()
+                $("body").css("overflow", "hidden")
+                $("#selectexam").empty()
+                $("#selectexam").append(`<option value="">Select Paper</option>`)
+
+                $.ajax({
+                    method: "GET",
+                    url: "/serverapi/exam",
+                    success: (getrespone) => {
+                        const respone = JSON.parse(getrespone)
+                        respone.forEach(element => {
+                            $("#selectexam").append(`<option value=${element.examuniqueid}>${element.exam}</option>`)
+                        });
+                    },
+                    error: (respone) => {
+                        console.log("If Showing this error inform to admin" + respone)
+                    }
+                })
+            })
+
+
+            //get paper and all info
+            $("#selectexam").on("change", function () {
+                const examid = $(this).val()
+                $("#selectpaper").empty()
+                $("#selectpaper").append(`<option value="">Select Paper</option>`)
+                $.ajax({
+                    method: "POST",
+                    url: "/serverapi/paper",
+                    data: { examUniqueid: examid },
+                    success: (getrespone) => {
+                        const respone = JSON.parse(getrespone)
+
+                        paperinfo.push(...respone.paper)
+                        id = respone.id.uniqueid
+
+                        respone.paper.forEach(element => {
+                            $("#selectpaper").append(`<option value=${element.paperUniqueid}> ${element.paper} </option>`)
+                        })
+                    },
+                    error: (respone) => {
+                        console.log(respone)
+                    }
+                })
+            })
+
+
+            $("#selectpaper").on("change", function () {
+                const paperid = $(this).val();
+
+                // clear old options before adding new ones
+                $("#selecttype").empty();
+                $("#selecttype").append(`<option value="">Select Type</option>`);
+
+
+                for (const item of paperinfo) {
+                    if (item.paperUniqueid === paperid) {
+
+                        language = item.Language
+
+                        if (item.Type.previous === "1") {
+                            $("#selecttype").append(`<option value="previous">Previous</option>`);
+                        }
+                        if (item.Type.series === "1") {
+                            $("#selecttype").append(`<option value="series">Series</option>`);
+                        }
+                        if (item.Type.subject === "1") {
+                            $("#selecttype").append(`<option value="subject">Subject</option>`);
+                        }
+                        break; // found the match, stop loop
+                    }
+                }
+            });
+
+
+            //get need to set paper type
+            $("#selecttype").on("change", function () {
+                const type = $(this).val()
+
+                if (type === "previous") {
+                    previous()
+                }
+                if (type === "series") {
+                    series()
+                }
+                if (type === "subject") {
+                    subject()
+                }
+            })
+
+            // set year in Previous paper
+            $("#change-year-status").on("change", function () {
+                const year = $(this).val();
+
+                if (year === "year") {
+                    $("#set-year-statue").empty().append(`
+                        <input type="number" class="input-style" id="year" placeholder="YYYY" min="1900" max="2099" step="1">
+                    `);
+                    return false;
+                }
+
+                if (year === "month") {
+                    $("#set-year-statue").empty().append(`
+                    <input type="month" class="input-style" id="year" placeholder="YYYY / MM">
+                `);
+                    return false;
+                }
+
+                if (year === "date") {
+                    $("#set-year-statue").empty().append(`
+                        <input type="date" class="input-style" id="year" placeholder="YYYY / MM / DD">
+                    `);
+                    return false;
+                }
+            });
+            
+
+            const clearLocalStorage = () => {
+                localStorage.removeItem("examid")
+                localStorage.removeItem("paperid")
+                localStorage.removeItem("examname")
+                localStorage.removeItem("papername")
+                localStorage.removeItem("year")
+                localStorage.removeItem("type")
+                localStorage.removeItem("remarks")
+                localStorage.removeItem("setcodeid")
+                localStorage.removeItem("language")
+
+                
+                localStorage.removeItem("seriescode")
+                localStorage.removeItem("seriesno")
+                //remove group question data
+                localStorage.removeItem("groupId")
+                localStorage.removeItem("groupCount")
+                localStorage.removeItem("groupRemainCount")
+                window.location.reload() //reload page
+            }
+
+
+            // previous years paper set meta sata in local storage
+            const setPreviousPaper = () => {
+                clearLocalStorage()
+                const selectexam = $("#selectexam").val()
+                const selectpaper = $("#selectpaper").val()
+                const selecttype = $("#selecttype").val()
+                const remarks = $("#remarks").val()
+                const year = $("#year").val()
+
+
+                localStorage.setItem("examid", selectexam)
+                localStorage.setItem("paperid", selectpaper)
+
+                localStorage.setItem("examname", $("#selectexam").find("option:selected").text())
+                localStorage.setItem("papernamem", $("#selectpaper").find("option:selected").text())
+                localStorage.setItem("year", year)
+                localStorage.setItem("type", selecttype)
+                localStorage.setItem("remarks", remarks)
+                localStorage.setItem("setcodeid", id)
+                localStorage.setItem("language", language)
+
+                singlePopClose(`Your exam data is set, Click  the Close Button and Enter data`, true)
+
+                $("#add-question-backgorund, #add-question-main-container").hide()
+                $("body").css("overflow", "auto")
+
+            }
+
+            
+            const setSeriesPapar=()=>{
+                clearLocalStorage()
+                const selectexam = $("#selectexam").val()
+                const selectpaper = $("#selectpaper").val()
+                const selecttype = $("#selecttype").val()
+                const remarks = $("#remarks").val()
+                const seriescode= $("#seriescode").val()
+                const seriesno= $("#seriesno").val()
+
+
+                localStorage.setItem("examid", selectexam)
+                localStorage.setItem("paperid", selectpaper)
+
+                localStorage.setItem("examname", $("#selectexam").find("option:selected").text())
+                localStorage.setItem("papernamem", $("#selectpaper").find("option:selected").text())
+                localStorage.setItem("type", selecttype)
+                localStorage.setItem("remarks", remarks)
+                localStorage.setItem("setcodeid", id)
+                localStorage.setItem("language", language)
+                localStorage.setItem("seriescode", seriescode)
+                localStorage.setItem("seriesno", seriesno)
+
+
+                singlePopClose(`Your exam data is set, Click  the Close Button and Enter data`, true)
+
+                $("#add-question-backgorund, #add-question-main-container").hide()
+                $("body").css("overflow", "auto")
+            }
+
+
+            $("#addinfo").on("click", () => {
+                const type = $("#selecttype").val()
+                console.log(type)
+                if (!type.length > 0) {
+                    singlePopClose("Pleace Select Paper Type Than Proceed Again", false)
+                    return false
+                }
+                if (type === "previous") {
+                    setPreviousPaper()
+                    return false;
+                }
+                if(type==="series"){
+                    setSeriesPapar()
+                }
+            })
+
+
+        })
+    </script>

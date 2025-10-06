@@ -1,0 +1,381 @@
+<div id="add-paper-background"></div>
+<div id="add-paper-main-container">
+    <div id="add-papper-close-container">
+        <div id="add-paper-close-box">
+            X
+        </div>
+    </div>
+    <div id="add-paper-heading">
+        Add Paper
+    </div>
+    <div class="add-mian-pop-contant">
+        <div class="add-paper-container">
+            <div class="add-paper-box">
+                <div class="add-paper-main-container">
+
+                    <div class="add-input-form-container">
+                        <div class="add-input-text">
+                            Exam Name
+                        </div>
+                        <div class="input-form-box">
+                            <input type="text" class="input-style" id="examPaperName">
+                            <input type="hidden" id="setExam">
+                            <input type="hidden" id="setExamid">
+                        </div>
+                    </div>
+
+                    <div class="add-input-form-container">
+                        <div class="add-input-text">
+                            Paper Name
+                        </div>
+                        <div class="input-form-box">
+                            <input type="text" class="input-style" id="examPaper" autocomplete="off">
+                        </div>
+                    </div>
+
+                    <div class="add-input-form-container">
+                        <div class="add-input-text ">
+                            total questions
+                        </div>
+                        <div class="input-form-box">
+                            <input type="text" class="input-style only-number" id="totalQuestions" autocomplete="off">
+                        </div>
+                    </div>
+
+                    <div class="add-input-form-container">
+                        <div class="add-input-text">
+                            total marks
+                        </div>
+                        <div class="input-form-box">
+                            <input type="text" class="input-style only-number" id="totalMarks" autocomplete="off">
+                        </div>
+                    </div>
+
+                    <div class="add-input-form-container">
+                        <div class="add-input-text">
+                            Item marks
+                        </div>
+                        <div class="input-form-box">
+                            <input type="text" class="input-style digit" id="itemMarks" autocomplete="off">
+                        </div>
+                    </div>
+
+                    <div class="add-input-form-container">
+                        <div class="add-input-text">
+                            negative marks
+                        </div>
+                        <div class="input-form-box">
+                            <input type="text" class="input-style digit" id="negativeMarks" autocomplete="off">
+                        </div>
+                    </div>
+
+                    <div class="add-input-form-container">
+                        <div class="add-input-text">
+                            duration
+                        </div>
+                        <div class="input-form-box">
+                            <input type="text" class="input-style time" id="duration" placeholder="00:00"
+                                autocomplete="off">
+                        </div>
+                    </div>
+
+                    <div class="add-input-form-container">
+                        <div class="add-input-text">
+                            Type
+                        </div>
+                        <div class="input-form-box  paper-type">
+                            <div>
+                                <span>Previous</span>
+                                <span>
+                                    <input type="checkbox" id="previous">
+                                </span>
+                            </div>
+
+                            <div>
+                                <span>Series</span>
+                                <span>
+                                    <input type="checkbox" id="series">
+                                </span>
+                            </div>
+
+                            <div>
+                                <span>subject</span>
+                                <span>
+                                    <input type="checkbox" id="subject">
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="add-input-form-container">
+                        <div class="add-input-text">
+                            Qualification
+                        </div>
+                        <div class="input-form-box">
+                            <textarea class="input-form-textarea" id="Qualification"></textarea>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="add-input-form-container">
+                        <div class="add-input-text">
+                            subjects
+                        </div>
+                        <div class="input-form-box">
+                            <textarea class="input-form-textarea" id="subjects"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="add-input-form-container">
+                        <div class="add-input-text">
+                            Language
+                        </div>
+                        <div class="input-form-box">
+                            <textarea class="input-form-textarea" id="Language"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="add-input-form-container">
+                        <div class="add-input-text">
+                            Remarks
+                        </div>
+                        <div class="input-form-box">
+                            <textarea class="input-form-textarea" id="Remarks"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="add-paper-submit-container">
+                <input type="submit" value="Add paper" class="add-exam" id="addpaper">
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../../fn/single-pop') %>
+    <script>
+        $(document).ready(function () {
+
+            $("#add-paper-close-box").on("click", () => {
+                $("#add-paper-background, #add-paper-main-container").hide();
+                $("body").css("overflow", "auto");
+            })
+
+            $(".add-paper").on("click", function () {
+                const data = $(this).data("add")
+                $("#examPaperName").val(data.exam)
+                $("#setExam").val(data.exam)
+                $("#setExamid").val(data.examuniqueid)
+                $("#add-paper-background, #add-paper-main-container").show();
+                $("body").css("overflow", "hidden");
+
+
+
+            })
+
+            $("#addpaper").on("click", function () {
+                const setExam = $("#examPaperName").val()
+                const setexamid = $("#setExamid").val()
+                const examPaper = $("#examPaper").val()
+                const totalQuestions = $("#totalQuestions").val()
+                const totalMarks = $("#totalMarks").val()
+                const itemMarks = $("#itemMarks").val()
+                const negativeMarks = $("#negativeMarks").val()
+                const duration = $("#duration").val()
+                const previous = $("#previous").prop("checked") ? 1 : 0;
+                const series = $("#series").prop("checked") ? 1 : 0;
+                const subject = $("#subject").prop("checked") ? 1 : 0;
+                const Qualification = $("#Qualification").val()
+                const subjects = $("#subjects").val()
+                const Language = $("#Language").val()
+                const Remarks = $("#Remarks").val()
+
+
+
+                if (!examPaper > 0 || !examPaper.trim()) {
+                    singlePopClose("Enter Paper Name", false);
+                    return false;
+                }
+                if (!totalQuestions > 0 || !totalQuestions.trim()) {
+                    singlePopClose("Enter Total Questions", false);
+                    return false
+                }
+                if (!totalMarks > 0 || !totalMarks.trim()) {
+                    singlePopClose("Enter Total Marks", false);
+                    return false
+                }
+                if (!totalMarks > 0 || !totalMarks.trim()) {
+                    singlePopClose("Enter Total Marks", false);
+                    return false
+                }
+                if (!itemMarks > 0 || !itemMarks.trim()) {
+                    singlePopClose("Enter Item Marks", false);
+                    return false
+                }
+                if (!negativeMarks > 0 || !negativeMarks.trim()) {
+                    singlePopClose("Enter negative Marks", false);
+                    return false
+                }
+                if (!duration > 0 || !duration.trim()) {
+                    singlePopClose("Set Time OR We want the time format to always be 5 characters long (hh:mm).", false);
+                    return false
+                }
+                if (duration.length !== 5) {
+                    singlePopClose("We want the time format to always be 5 characters long (hh:mm).", false);
+                    return false
+                }
+                if (!Qualification > 0 || !Qualification.trim()) {
+                    singlePopClose("Enter Qualification.", false);
+                    return false
+                }
+                if (!subjects > 0 || !subjects.trim()) {
+                    singlePopClose("Enter subjects.", false);
+                    return false
+                }
+                if (!Language > 0 || !Language.trim()) {
+                    singlePopClose("Enter Language.", false);
+                    return false
+                }
+
+                const data = {
+                    examName: setExam,
+                    examuniqueid: setexamid,
+                    Paper: examPaper,
+                    totalQuestions: totalQuestions,
+                    totalMarks: totalMarks,
+                    itemMarks: itemMarks,
+                    negativeMarks: negativeMarks,
+                    duration: duration,
+                    previous: previous,
+                    series: series,
+                    subject: subject,
+                    Qualification: Qualification,
+                    subjects: subjects,
+                    Language: Language,
+                    Remarks: Remarks,
+                    name: "<%- name %>",
+                    user: "<%- user %>",
+                    adminid: "<%- adminid %>",
+                    role: "<%- role %>"
+                }
+                console.log(data)
+                $.ajax({
+                    method: "POST",
+                    url: "/admin/addpaper",
+                    data: data,
+                    success: function (getrespone) {
+                        $("#add-paper-background, #add-paper-main-container").hide();
+                        $("body").css("overflow", "auto");
+                        const respone = JSON.parse(getrespone)
+                        if (respone.status === true) {
+                            singlePopClose(respone.message, respone.status);
+                        }
+                        if (respone.status === false) {
+                            singlePopClose(respone.message, respone.status);
+                        }
+                    },
+                    error: function (respone) {
+                        $("#add-paper-background, #add-paper-main-container").hide();
+                        $("body").css("overflow", "auto");
+                        singlePopClose(respone, false);
+                    }
+                })
+            })
+        })
+
+
+
+
+
+
+
+        // jQuery
+        $(document).ready(function () {
+            $('.only-number').on('input', function () {
+                // Replace any non-digit character with an empty string
+                this.value = this.value.replace(/\D/g, '');
+
+            });
+        });
+
+        $(document).ready(function () {
+            $('.digit').on('input', function () {
+                // Replace any non-digit character with an empty string
+                this.value = this.value.replace(/(\..*)\./g, '$1');
+
+            });
+        });
+
+        $(document).on('input', '.time', function () {
+            // allow only digits + colon
+            this.value = this.value.replace(/[^0-9:]/g, '');
+        });
+
+        // validate on blur: only accept 1–12 for hours and 0–59 for minutes
+        $(document).on('blur', '.time', function () {
+            const val = this.value;
+            const match = val.match(/^((0[1-9])|(0[0-2])):([0-5][0-9])$/);
+            if (!match) {
+                this.value = ''; // clear invalid input
+            }
+        });
+
+    </script>
+
+    <style>
+        #add-paper-background {
+            height: 100vh;
+            width: 100%;
+            background-color: black;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            opacity: .8;
+            display: none;
+        }
+
+        #add-paper-main-container {
+            height: 550px;
+            width: 80vw;
+            background-color: white;
+            position: absolute;
+            border-radius: 5px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: none;
+        }
+
+        #add-papper-close-container {
+            height: var(--add-pop-up-height);
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        #add-paper-close-box {
+            height: 25px;
+            width: 25px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            color: var(--close-button-text-color);
+            cursor: pointer;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        #add-paper-heading {
+            height: var(--add-pop-up-height);
+            margin-top: calc(-1 * var(--add-pop-up-height));
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 26px;
+        }
+    </style>

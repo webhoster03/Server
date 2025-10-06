@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DashBoard</title>
+    <!-- for all page -->
+    <link rel="stylesheet" type="text/css" href="../topnav.css">
+    <link rel="stylesheet" type="text/css" href="../sidenav.css">
+    <link rel="stylesheet" type="text/css" href="../main.css">
+    <link rel="stylesheet" type="text/css" href="../var.css">    
+    <link rel="stylesheet" type="text/css" href="../add-info.css">
+    <script src="/jquery.js"></script>
+    <script src="/sidenav.js"></script>
+    <script src="/main-heading.js"></script>
+    <script src="/addpop.js"></script>
+    <!-- pack -->
+
+    <link rel="stylesheet" type="text/css" href="../employ.css">
+</head>
+
+<body>
+    <%- include("component/topnav.ejs") %>
+        <div class="contant-container">
+            <div class="side-div-bar">
+                <div class="side-nav-icon">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+            <%- include("component/sidenav.ejs") %>
+                <div class="main-contant-container">
+                    <div id="employ-container">
+                        <div class="main-exam-container" id="employheading">
+                            <!-- main heading is comman in every page start -->
+                            <script>
+                                document.getElementById("employheading").innerHTML += mainHeading("Add Employ", "open-employees-box", "employees");
+                            </script>
+                            <!-- main heading is comman in every page end -->
+                        </div>
+                    </div>
+
+
+                    
+                </div>
+        </div>
+
+        <%- include("component/add-employ.ejs") %>
+</body>
+</html>

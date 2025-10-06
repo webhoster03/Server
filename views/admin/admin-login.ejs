@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login</title>
+    <link rel="stylesheet" href="/login.css">
+    <script src="/jquery.js"></script>
+    <script src="/sinlge-pop-close.js"></script>
+</head>
+
+<body>
+    <div class="main-login-container">
+        <div class="main-login-box">
+            <div class="login-title-box">
+                <div class="main-heading-box">
+                    <div class="main-heading">
+                        <%= appName %>
+                    </div>
+                    <div class="message-box">
+                        Welcome to Admin Login Panal
+                    </div>
+                </div>
+            </div>
+
+            <div class="login-container">
+                <div class="login-box">
+                    <div class="user-image">
+                        <img src="/user.png">
+                    </div>
+                    <div class="login-form-container">
+                        <form action="/admin/login" method="post">
+                            <div class="main-form-box">
+                                <div class="form-icon">
+                                    <i class="fa-solid fa-user"></i>
+                                </div>
+                                <div class="input-form">
+                                    <input type="text" name="user" id="user" class="user-form"
+                                        placeholder="Enter your username" autocomplete="off" autofocus>
+                                </div>
+                            </div>
+
+                            <div class="main-form-box">
+                                <div class="form-icon">
+                                    <i class="fa-solid fa-key"></i>
+                                </div>
+                                <div class="input-form">
+                                    <input type="password" name="password" class="user-form"
+                                        placeholder="Enter your password" class="input">
+                                </div>
+                            </div>
+
+
+                            <div class="login-button-container">
+                                <div class="login-button">
+                                    <input type="submit" name="submit" value="Login" class="login" id="login">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <%- include('../fn/single-pop') %>
+
+        <% if(message && message.length> 0){ %>
+            <script>
+                singlePopClose(<%- JSON.stringify(message) %>);
+
+            </script>
+            <% } %>
+
+            <!-- this code is ok -->
+                
+
+
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"
+                    integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ=="
+                    crossorigin="anonymous" referrerpolicy="no-referrer" />
+</body>
+
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DashBoard</title>
+    <!-- for all page -->
+    <link rel="stylesheet" type="text/css" href="topnav.css">
+    <link rel="stylesheet" type="text/css" href="sidenav.css">
+    <link rel="stylesheet" type="text/css" href="main.css">
+    <script src="/jquery.js"></script>
+    <script src="/sidenav.js"></script>
+    <!-- pack -->
+</head>
+<body>
+    <%- include("component/topnav.ejs") %>
+    <div class="contant-container">
+        <div class="side-div-bar">
+            <div class="side-nav-icon">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        <%- include("component/sidenav.ejs") %>
+        <div class="main-contant-container">
+            
+        </div>
+    </div>
+</body>
+</html>
