@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require('express');
 const app= express();
 const cookieParser = require("cookie-parser")
+const cors = require('cors')
 
 const session = require("express-session")
 const flash = require("connect-flash")
@@ -9,6 +10,8 @@ const flash = require("connect-flash")
 
 
 app.use(cookieParser())
+app.use(cors())
+app.use(express.json())
 
 app.use(session({
     secret:"keyboard cat",
@@ -30,6 +33,7 @@ app.use("/", require("./routes/employees"))
 app.use('/admin',require("./routes/admin"))
 app.use('/serverapi',require("./routes/serverapi"))
 app.use('/question',require("./routes/question"))
+app.use('/user',require("./routes/user"))
 
 
 
