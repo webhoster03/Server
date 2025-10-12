@@ -1,12 +1,1 @@
-echo "# Server" >> README.md
-git init
-git add README.md
-git commit -m "first commit"
-git branch -M main
-git remote add origin https://github.com/webhoster03/Server.git
-git push -u origin main
-
-
-git remote add origin https://github.com/webhoster03/Server.git
-git branch -M main
-git push -u origin main
+http://localhost:6500/user/verification?user=photoshooter198%40gmail.com&token=9pLt5FV9oVvBKWKZQ5ObZLdRCw1ncYYI&key=ugHundRmtVtUroU64r9MUjU82qKOq8bP

@@ -1,7 +1,7 @@
 require("dotenv").config();
 const adminLogin = require("./../../model/admin-login")
 const bcrypt = require("bcryptjs")
-const solt = bcrypt.genSaltSync(14);
+//const solt = bcrypt.genSaltSync(14);
 const jwt = require("jsonwebtoken")
 const adminKey = process.env.ADMIN_KEY
 
