@@ -81,7 +81,7 @@ const Signup = async (req, res) => {
                             <!-- Message -->
                             <p style="color:#333;font-size:15px;line-height:1.6;margin-bottom:25px;text-align:center;">
                                 To complete your registration and access your courses, please verify your email address
-                                by clicking the button below.
+                                by clicking the button below. this link is valid only 15 minutes
                             </p>
 
                             <!-- Verify Button -->

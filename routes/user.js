@@ -9,6 +9,8 @@ route.post("/signup",signupvalidate, Signup )
 const Verification= require("./../controller/user/verification")
 route.get("/verification", Verification)
 
+const Login= require("./../controller/user/login")
+route.post("/login", Login)
 
 
 module.exports = route
