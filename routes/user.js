@@ -12,5 +12,12 @@ route.get("/verification", Verification)
 const Login= require("./../controller/user/login")
 route.post("/login", Login)
 
+const CheckSignup= require("./../middlewares/checkSignup")
+const Reload= require("./../controller/user/reload")
+route.post("/reload",CheckSignup, Reload)
+
+const Resend = require("./../controller/user/resend")
+route.post("/resend",CheckSignup, Resend)
+
 
 module.exports = route

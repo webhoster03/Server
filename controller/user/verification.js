@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 const Verification = async (req, res) => {
     const query = Object.assign({}, req.query);
 
+
     const mail = query.user;
     const token = query.token;
     const key = query.key;

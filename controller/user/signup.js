@@ -23,10 +23,11 @@ const mail = require("./../mail")
 const Signup = async (req, res) => {
     const data = req.body
 
+    const email = data.mail.toLowerCase()
     const sendToken = token.rnd()
     const sendKey = key.rnd()
     const baseUrl = process.env.URL?.replace(/\/$/, ""); // remove trailing slash if exists
-    const actionKey = `${baseUrl}/user/verification?user=${encodeURIComponent(data.mail)}&token=${encodeURIComponent(sendToken)}&key=${encodeURIComponent(sendKey)}`;
+    const actionKey = `${baseUrl}/user/verification?user=${encodeURIComponent(email)}&token=${encodeURIComponent(sendToken)}&key=${encodeURIComponent(sendKey)}`;
 
 
 
@@ -44,7 +45,7 @@ const Signup = async (req, res) => {
         token: sendToken,
         key: sendKey,
         name: data.name,
-        email: data.mail,
+        email: email,
         password: bcrypt.hashSync(data.password, solt),
         status: 0,
         date: format("yyyy mm dd", new Date()),
@@ -129,28 +130,28 @@ const Signup = async (req, res) => {
 </html>
     `
 
-    const checkuser = await userSignup.findOne({ email: data.mail })
+    const checkuser = await userSignup.findOne({ email: email })
 
 
     if (checkuser === null) {
 
         const savedata = await new userSignup(user).save()
-        const respone = savedata.toObject()
-        delete respone.password
-        delete respone._id
-        delete respone.__v
-        delete respone.date
-        delete respone.time
-        delete respone.ip
+        const response = savedata.toObject()
+        delete response.password
+        delete response._id
+        delete response.__v
+        delete response.date
+        delete response.time
+        delete response.ip
 
 
-        jwt.sign({ respone }, userkey, (err, token) => {
+        jwt.sign({ response }, userkey, (err, token) => {
             if (err) {
                 return res.status(202).send({ status: false, message: "user authentication key not assigned , to Re-sign again" })
             }
             if (token) {
-                mail(data.mail, subject, message)
-                res.status(200).send({ status: true, signtoken: token, respone: respone })
+                mail(email, subject, message)
+                res.status(200).send({ status: true, signtoken: token, response: response })
             } else {
                 return res.status(202).send({ status: false, message: "user authentication key not assigned , to Re-sign again" })
             }
@@ -158,13 +159,13 @@ const Signup = async (req, res) => {
         })
     } else {
         if (Number(checkuser.status) === 0) {
-            const updateuser = await userSignup.updateOne({ email: data.mail }, {
+            const updateuser = await userSignup.updateOne({ email: email }, {
                 $set: {
                     user_id: user_id.rnd(),
                     token: sendToken,
                     key: sendKey,
                     name: data.name,
-                    email: data.mail,
+                    email: email,
                     password: bcrypt.hashSync(data.password, solt),
                     status: 0,
                     date: format("yyyy mm dd", new Date()),
@@ -174,24 +175,23 @@ const Signup = async (req, res) => {
             })
 
             if (updateuser.modifiedCount > 0 && updateuser.matchedCount > 0 && updateuser.acknowledged === true) {
-                const finduser = await userSignup.findOne({ email: data.mail })
-                const respone = finduser.toObject()
-                delete respone.password
-                delete respone._id
-                delete respone.__v
-                delete respone.date
-                delete respone.time
-                delete respone.ip
+                const finduser = await userSignup.findOne({ email: email })
+                const response = finduser.toObject()
+                delete response.password
+                delete response._id
+                delete response.__v
+                delete response.date
+                delete response.time
+                delete response.ip
 
-                console.log(respone)
 
-                jwt.sign({ respone }, userkey, (err, token) => {
+                jwt.sign({ response }, userkey, (err, token) => {
                     if (err) {
                         return res.status(202).send({ status: false, message: "user authentication key not assigned , to Re-sign again" })
                     }
                     if (token) {
-                        mail(data.mail, subject, message)
-                        res.status(200).send({ status: true, signtoken: token, respone: respone })
+                        mail(email, subject, message)
+                        res.status(200).send({ status: true, signtoken: token, response: response })
                     } else {
                         return res.status(202).send({ status: false, message: "user authentication key not assigned , to Re-sign again" })
                     }
