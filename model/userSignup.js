@@ -9,12 +9,10 @@ const userSignupSchema = new mongoose.Schema({
     token: {
         type: String,
         required: true,
-        unique: true
     },
     key: {
         type: String,
         required: true,
-        unique: true
     },
     name: {
         type: String,

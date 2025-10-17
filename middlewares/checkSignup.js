@@ -27,11 +27,11 @@ const CheckSignup = (req, res, next) => {
 
         const checkuser = await userSignup.findOne({
             user_id: data.user_id,
-            token: data.token,
-            key: data.key,
-            name: data.name,
-            email: data.mail,
-            status: data.status
+            // token: data.token,
+            // key: data.key,
+            // name: data.name,
+            // email: data.mail,
+            // status: data.status
         })
         if (checkuser === null) {
             return res.status(401).json({ status: false, message: "User Authentication Error x08" })

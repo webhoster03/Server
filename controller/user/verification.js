@@ -70,7 +70,7 @@ const Verification = async (req, res) => {
             return res.redirect(`${appUrl}/verification?${params}`);
         }
 
-        // ✅ Success — redirect with token
+        // Success — redirect with token
         const params = new URLSearchParams({
             status: true,
             response: 5,
